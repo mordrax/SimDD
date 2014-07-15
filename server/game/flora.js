@@ -1,3 +1,5 @@
+var extend = require('util')._extend;
+
 (function(flora) {
 
     var SPAWNING_TIME = 10;
@@ -21,11 +23,14 @@
             this.name = name;
             this.type = type;
 
-            this.attibutes = floraAttributes[type] || {
-                fruitage:1,
-                basecover:1
-            };
-
+            if (floraAttributes[type]) {
+                this.attributes = extend({}, floraAttributes[type]);
+            } else {
+                this.attributes = {
+                    fruitage:1,
+                    basecover:1
+                };
+            }
             this.coords = coords || {x:0,y:0}
         }
 

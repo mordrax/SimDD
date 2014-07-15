@@ -119,7 +119,7 @@ var Game = (function () {
             n = n + '';
             return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
         };
-        self = this;
+
         this.fauna.faunas.forEach(function (faunaData) {
             var fauna = new faunaModel(faunaData);
             fauna.save(function (err, val) {
@@ -129,6 +129,7 @@ var Game = (function () {
                     console.log("Saved with value: " + val);
             });
         });
+
         this.flora.floras.forEach(function (floraData) {
             var flora = new floraModel(floraData);
             flora.save(function (err, val) {
