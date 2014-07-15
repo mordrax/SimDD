@@ -43,6 +43,8 @@ var FaunaModel = require('../api/fauna/fauna.model');
             this.type = genome.type;
             this.attributes = genome.attributes;
             this.coords = genome.coords;
+
+
         }
 
         Fauna.prototype.update = function(game) {
@@ -117,23 +119,14 @@ var FaunaModel = require('../api/fauna/fauna.model');
                console.log("Error: Getting faunas from db.");
            }
 
-            faunas.forEach(function (f) {
-               faunaManager.faunas.push(new Fauna(f));
+            faunas.forEach(function (item) {
+               faunaManager.faunas.push(new Fauna(item));
             });
         });
-
-        /*for (var i=0; i<wolves; i++) {
-            fauna.faunas.push(new Fauna(animalCount++, 'wolf', game.randCoord()));
-        }
-
-        for (var i=0; i<rabbits; i++) {
-            fauna.faunas.push(new Fauna(animalCount++, 'rabbit', game.randCoord()));
-        }*/
     };
 
     faunaManager.update = function(game) {
-        faunaManager.faunas = faunaManager.faunas || [];
-        //console.log("there are " + faunas.length + " animals in the world.");
+        // update all faunas
         for (var i=faunaManager.faunas.length-1; i>0; i--) {
             faunaManager.faunas[i].update(game);
 
@@ -144,8 +137,28 @@ var FaunaModel = require('../api/fauna/fauna.model');
 
         // spawn new animal when countdown reaches 0, reset countdown
         if (--spawnCountdown <= 0) {
-            faunaManager.faunas.push(new Fauna(animalCount++, 'wolf', game.randCoord()));
-            faunaManager.faunas.push(new Fauna(animalCount++, 'rabbit', game.randCoord()));
+            var genome = {
+                name: animalCount++ + 'wolf',
+                type: 'wolf',
+                attributes: faunaAttributes['wolf'],
+                coords: game.randCoord()
+            };
+            FaunaModel.create(genome, function(err, res) {
+                if (err)
+                    console.log("Error: Failed to add a new " + genome + " to the db.")
+            });
+
+            genome = {
+                name: animalCount++ + 'rabbit',
+                type: 'rabbit',
+                attributes: faunaAttributes['rabbit'],
+                coords: game.randCoord()
+            };
+            FaunaModel.create(genome, function(err, res) {
+                if (err)
+                    console.log("Error: Failed to add a new " + genome + " to the db.")
+            });
+
             spawnCountdown = SPAWNING_TIME;
         }
     };

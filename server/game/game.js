@@ -120,7 +120,7 @@ var Game = (function () {
             return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
         };
 
-        this.fauna.faunas.forEach(function (faunaData) {
+/*        this.fauna.faunas.forEach(function (faunaData) {
             var fauna = new faunaModel(faunaData);
             fauna.save(function (err, val) {
                 if (err)
@@ -138,7 +138,7 @@ var Game = (function () {
                 else
                     console.log("Saved with value: " + val);
             });
-        });
+        });*/
     };
 
     Game.prototype.validate = function (coords) {
