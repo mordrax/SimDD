@@ -1,11 +1,10 @@
 'use strict';
 
 angular.module('simDdApp')
-    .controller('FaunasCtrl', function ($scope, $http) {
+    .controller('FaunasCtrl', function ($scope, WorldService) {
         $scope.message = 'Hello';
 
-        $http.get('/api/faunas')
-            .success(function(result) {
+        WorldService.faunaService.query(function(result) {
                 $scope.faunas = result;
         });
 

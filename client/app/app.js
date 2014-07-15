@@ -6,7 +6,8 @@ angular.module('simDdApp', [
   'ngSanitize',
   'ui.bootstrap',
   'ngRoute',
-  'btford.socket-io'
+  'btford.socket-io',
+  'ngTable'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

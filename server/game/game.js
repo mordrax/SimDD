@@ -129,6 +129,15 @@ var Game = (function () {
                     console.log("Saved with value: " + val);
             });
         });
+        this.flora.floras.forEach(function (floraData) {
+            var flora = new floraModel(floraData);
+            flora.save(function (err, val) {
+                if (err)
+                    console.log("Failed to update flora: " + flora.name + "err: " + error);
+                else
+                    console.log("Saved with value: " + val);
+            });
+        });
     };
 
     Game.prototype.validate = function (coords) {
