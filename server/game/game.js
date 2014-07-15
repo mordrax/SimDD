@@ -63,6 +63,7 @@ var Game = (function () {
     };
 
     Game.prototype.draw = function () {
+/* Obsolete - Drawing world
         var buffer = [];
         for (var i = 0; i < this.planet.data.length; i++) {
             buffer[i] = [];
@@ -70,7 +71,8 @@ var Game = (function () {
                 buffer[i][j] = this.planet.data[i][j];
             }
         }
-
+*/
+/* Obsolete - Drawing flora/fauna
         this.flora.floras.concat(this.fauna.faunas).forEach(function (entity) {
             var char;
             switch (entity.type) {
@@ -88,26 +90,9 @@ var Game = (function () {
                     break;
             }
             buffer[entity.coords.x][entity.coords.y] = char;
-        });
+        });*/
 
         this.save();
-        /*
-         var worldModel = this.worldSchemas.world;
-
-         var prettyBuffer;
-         buffer.forEach(function (row) {
-         prettyBuffer += row.join('') + '||';
-         });
-
-         var newWorld = new worldModel({worldData:prettyBuffer});
-
-         var upsertData = newWorld.toObject();
-         delete upsertData._id;
-
-         // insert to theWorld db rather than to console
-         worldModel.update({_id: 100}, upsertData, {upsert:true}, function(err) {
-         if (err) console.log('failed to save new ground to world.')
-         });*/
     };
 
     Game.prototype.save = function () {
