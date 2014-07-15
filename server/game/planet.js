@@ -4,13 +4,19 @@
     planet.WIDTH = 50;
 
     planet.init = function() {
-        // initialise world
-        planet.data = [];
+        // initialise world if one does not exist already
+
+        planet.data = seed();
+    };
+
+    var seed = function() {
+        var data = [];
         for (var i=0; i<planet.HEIGHT; i++) {
-            planet.data[i] = [];
+            data[i] = [];
             for (var j=0; j<planet.WIDTH; j++) {
-                planet.data[i][j] = '.';
+                data[i][j] = '.';
             }
         }
+        return data;
     }
 })(module.exports);

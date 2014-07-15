@@ -1,12 +1,14 @@
 var extend = require('util')._extend;
 
-(function(fauna) {
+var FaunaModel = require('../api/fauna/fauna.model');
+
+(function(faunaManager) {
     var SPAWNING_TIME = 10;
     var SAFE_DISTANCE = 5;
     var spawnCountdown = SPAWNING_TIME;
     var animalCount = 0;
 
-    fauna.faunas = [];
+    faunaManager.faunas = [];
     var deceased_faunas = [];
 
     var faunaAttributes = {
@@ -36,22 +38,11 @@ var extend = require('util')._extend;
     };
 
     var Fauna = (function() {
-        function Fauna(name, type, coords) {
-            this.name = name;
-            this.type = type;
-
-            if (faunaAttributes[type]) {
-                this.attributes = extend({}, faunaAttributes[type]);
-            } else {
-                this.attributes = {
-                    speed: 2,
-                    hunger: 20,
-                    attack: 2,
-                    defense: 1
-                };
-            }
-
-            this.coords = coords || {x:0,y:0}
+        function Fauna(genome) {
+            this.name = genome.name;
+            this.type = genome.type;
+            this.attributes = genome.attributes;
+            this.coords = genome.coords;
         }
 
         Fauna.prototype.update = function(game) {
@@ -100,7 +91,7 @@ var extend = require('util')._extend;
         };
 
         Fauna.prototype.FindNearest = function (type, floras) {
-            var entities = fauna.faunas.concat(floras||[]);
+            var entities = faunaManager.faunas.concat(floras||[]);
             var self = this;
             var nearest;
             var nearestDist = Number.MAX_VALUE;
@@ -120,32 +111,43 @@ var extend = require('util')._extend;
         return Fauna;
     })();
 
-    fauna.init = function(wolves, rabbits, game) {
-        for (var i=0; i<wolves; i++) {
+    faunaManager.init = function(game) {
+        FaunaModel.find(function (err, faunas) {
+           if (err) {
+               console.log("Error: Getting faunas from db.");
+           }
+
+            faunas.forEach(function (f) {
+               faunaManager.faunas.push(new Fauna(f));
+            });
+        });
+
+        /*for (var i=0; i<wolves; i++) {
             fauna.faunas.push(new Fauna(animalCount++, 'wolf', game.randCoord()));
         }
 
         for (var i=0; i<rabbits; i++) {
             fauna.faunas.push(new Fauna(animalCount++, 'rabbit', game.randCoord()));
-        }
+        }*/
     };
 
-    fauna.update = function(game) {
+    faunaManager.update = function(game) {
+        faunaManager.faunas = faunaManager.faunas || [];
         //console.log("there are " + faunas.length + " animals in the world.");
-        for (var i=fauna.faunas.length-1; i>0; i--) {
-            fauna.faunas[i].update(game);
+        for (var i=faunaManager.faunas.length-1; i>0; i--) {
+            faunaManager.faunas[i].update(game);
 
-            if (fauna.faunas[i].attributes.hunger < 0) {
-                deceased_faunas.concat(fauna.faunas.splice(i, 1)); // remove animal from faunas and add to dead list
+            if (faunaManager.faunas[i].attributes.hunger < 0) {
+                deceased_faunas.concat(faunaManager.faunas.splice(i, 1)); // remove animal from faunas and add to dead list
             }
         }
 
         // spawn new animal when countdown reaches 0, reset countdown
         if (--spawnCountdown <= 0) {
-            fauna.faunas.push(new Fauna(animalCount++, 'wolf', game.randCoord()));
-            fauna.faunas.push(new Fauna(animalCount++, 'rabbit', game.randCoord()));
+            faunaManager.faunas.push(new Fauna(animalCount++, 'wolf', game.randCoord()));
+            faunaManager.faunas.push(new Fauna(animalCount++, 'rabbit', game.randCoord()));
             spawnCountdown = SPAWNING_TIME;
         }
-    }
+    };
 
 })(module.exports);

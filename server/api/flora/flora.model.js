@@ -9,6 +9,10 @@ var FloraSchema = new Schema({
     attributes: {
         fruitage: Number,
         basecover: Number
+    },
+    coords : {
+        x: Number,
+        y: Number
     }
 });
 

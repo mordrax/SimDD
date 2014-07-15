@@ -11,6 +11,10 @@ var FaunaSchema = new Schema({
       hunger: Number,
       attack: Number,
       defense: Number
+  },
+  coords : {
+      x: Number,
+      y: Number
   }
 });
 

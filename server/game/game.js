@@ -21,7 +21,7 @@ var Game = (function () {
 
     Game.prototype.init = function () {
         this.planet.init();
-        this.fauna.init(5, 20, this);
+        this.fauna.init(this);
         this.flora.init(10, 10, this);
 
         this.mongoose.connect('mongodb://localhost/simdd-dev');
