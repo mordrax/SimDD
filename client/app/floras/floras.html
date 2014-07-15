@@ -1,16 +1,1 @@
-<div ng-include="&quot;components/navbar/navbar.html&quot;"></div>
-<div class="container">
-    <div ng-repeat="flora in floras"><h2 class="bold">{{ flora.type + fauna.name }}</h2>
-
-        <p>{{message}}</p>
-
-        <div class="container">
-            <div class="form-group"><label>defense</label><input type="text" ng-model="flora.attributes.defense" class="form-input"/></div>
-            <div class="form-group"><label>attack</label><input type="text" ng-model="flora.attributes.attack" class="form-input"/></div>
-            <div class="form-group"><label>hunger</label><input type="text" ng-model="flora.attributes.hunger" class="form-input"/></div>
-            <div class="form-group"><label>speed</label><input type="text" ng-model="flora.attributes.speed" class="form-input"/></div>
-            <p>{{ flora }}</p>
-            <button ng-click="save(flora)" class="btn btn-success">Save</button>
-        </div>
-    </div>
-</div>
+<div ng-include="&quot;components/navbar/navbar.html&quot;"></div><div class="container"><table ng-table="florasTable" show-filter="true" class="table"><tr ng-repeat="flora in floras"><td data-title="'name'" filter="{'name':'text'}">{{ flora.name }}</td><td data-title="'type'" filter="{'type':'text'}">{{ flora.type }}</td><td data-title="'fruitage'">{{ flora.attributes.fruitage }}</td><td data-title="'basecover'">{{ flora.attributes.basecover }}</td></tr></table></div>

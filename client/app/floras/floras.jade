@@ -1,21 +1,9 @@
 div(ng-include='"components/navbar/navbar.html"')
 
 .container
-  div(ng-repeat="flora in floras")
-    h2.bold {{ flora.type + fauna.name }}
-    p {{message}}
-    div.container
-      div.form-group
-        label defense
-        input.form-input(type="text", ng-model="flora.attributes.defense")
-      div.form-group
-        label attack
-        input.form-input(type="text", ng-model="flora.attributes.attack")
-      div.form-group
-        label hunger
-        input.form-input(type="text", ng-model="flora.attributes.hunger")
-      div.form-group
-        label speed
-        input.form-input(type="text", ng-model="flora.attributes.speed")
-      p {{ flora }}
-      button.btn.btn-success(ng-click="save(flora)") Save
+  table.table(ng-table="florasTable", show-filter="true")
+    tr(ng-repeat="flora in floras")
+      td(data-title="'name'" filter="{'name':'text'}") {{ flora.name }}
+      td(data-title="'type'" filter="{'type':'text'}") {{ flora.type }}
+      td(data-title="'fruitage'") {{ flora.attributes.fruitage }}
+      td(data-title="'basecover'") {{ flora.attributes.basecover }}

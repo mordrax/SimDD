@@ -1,20 +1,8 @@
 div(ng-include='"components/navbar/navbar.html"')
 
 .container
-  div(ng-repeat="fauna in faunas")
-    h2.bold {{ fauna.type + fauna.name }}
-    div.container
-      div.form-group
-        label defense
-        input.form-input(type="text", ng-model="fauna.attributes.defense")
-      div.form-group
-        label attack
-        input.form-input(type="text", ng-model="fauna.attributes.attack")
-      div.form-group
-        label hunger
-        input.form-input(type="text", ng-model="fauna.attributes.hunger")
-      div.form-group
-        label speed
-        input.form-input(type="text", ng-model="fauna.attributes.speed")
-      p {{ fauna }}
-      button.btn.btn-success(ng-click="save(fauna)") Save
+  table.table(ng-table="faunasTable", show-filter="true")
+    tr(ng-repeat="fauna in faunas")
+      td(data-title="'name'" filter="{'name':'text'}") {{ fauna.name }}
+      td(data-title="'type'" filter="{'type':'text'}") {{ fauna.type }}
+      td(data-title="'attributes'") {{ fauna.attributes }}
