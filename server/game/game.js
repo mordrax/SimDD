@@ -119,12 +119,22 @@ var Game = (function () {
             n = n + '';
             return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
         };
-        self = this;
+
         this.fauna.faunas.forEach(function (faunaData) {
             var fauna = new faunaModel(faunaData);
             fauna.save(function (err, val) {
                 if (err)
                     console.log("Failed to update fauna: " + fauna.name + "err: " + error);
+                else
+                    console.log("Saved with value: " + val);
+            });
+        });
+
+        this.flora.floras.forEach(function (floraData) {
+            var flora = new floraModel(floraData);
+            flora.save(function (err, val) {
+                if (err)
+                    console.log("Failed to update flora: " + flora.name + "err: " + error);
                 else
                     console.log("Saved with value: " + val);
             });
