@@ -1,11 +1,13 @@
 var extend = require('util')._extend;
 
-(function(flora) {
+var FloraModel = require('../api/flora/flora.model');
+
+(function(floraManager) {
 
     var SPAWNING_TIME = 10;
     var spawnCountdown = SPAWNING_TIME;
     var plantCount = 0;
-    flora.floras = [];
+    floraManager.floras = [];
 
     var floraAttributes = {
         berrybush:{
@@ -18,49 +20,70 @@ var extend = require('util')._extend;
         }
     };
 
-    var Flora = (function() {
-        function Flora(name, type, coords) {
-            this.name = name;
-            this.type = type;
 
-            if (floraAttributes[type]) {
-                this.attributes = extend({}, floraAttributes[type]);
-            } else {
-                this.attributes = {
-                    fruitage:1,
-                    basecover:1
-                };
-            }
-            this.coords = coords || {x:0,y:0}
+    var Flora = (function() {
+        function Flora(genome) {
+            this.name = genome.name;
+            this.type = genome.type;
+            this.attributes = genome.attributes;
+            this.coords = genome.coords;
         }
 
-        Flora.prototype.update = function() {
+
+        Flora.prototype.update = function(game) {
             //console.log(this.name + " updating this plant")
         };
-
         return Flora;
     })();
 
-    flora.init = function(berryBushes, grass, game) {
-        for (var i=0; i<berryBushes; i++) {
-            flora.floras.push(new Flora(plantCount++, 'berrybush', game.randCoord()));
+
+    floraManager.init = function(game) {
+        FloraModel.find(function (err, floras) {
+            if (err) {
+                console.log("Error: Getting floras from db.");
+            }
+
+            floras.forEach(function (item) {
+                floraManager.floras.push(new Flora(item));
+            });
+        });
+    };
+
+
+    floraManager.update = function(game) {
+        // update all floras
+        for (var i=floraManager.floras.length-1; i>0; i--) {
+            floraManager.floras[i].update(game);
+
         }
 
-        for (var i=0; i<grass; i++) {
-            flora.floras.push(new Flora(plantCount++, 'grass', game.randCoord()));
+        // spawn new plant when countdown reaches 0, reset countdown
+        if (--spawnCountdown <= 0) {
+            var genome = {
+                name: plantCount++ + 'berrybush',
+                type: 'berrybush',
+                attributes: floraAttributes['berrybush'],
+                coords: game.randCoord()
+            };
+            FloraModel.create(genome, function(err, res) {
+                if (err)
+                    console.log("Error: Failed to add a new " + genome + " to the db.")
+            });
+
+            genome = {
+                name: plantCount++ + 'grass',
+                type: 'grass',
+                attributes: floraAttributes['grass'],
+                coords: game.randCoord()
+            };
+            FloraModel.create(genome, function(err, res) {
+                if (err)
+                    console.log("Error: Failed to add a new " + genome + " to the db.")
+            });
+
+            spawnCountdown = SPAWNING_TIME;
         }
     };
 
-    flora.update = function(game) {
-        flora.floras.forEach(function(plant) {
-            plant.update();
-        });
-
-        if (--spawnCountdown <= 0) {
-            flora.floras.push(new Flora(plantCount++, 'berrybush', game.randCoord()));
-            flora.floras.push(new Flora(plantCount++, 'grass', game.randCoord()));
-            spawnCountdown = SPAWNING_TIME;
-        }
-    }
 
 })(module.exports);

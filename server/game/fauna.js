@@ -43,8 +43,6 @@ var FaunaModel = require('../api/fauna/fauna.model');
             this.type = genome.type;
             this.attributes = genome.attributes;
             this.coords = genome.coords;
-
-
         }
 
         Fauna.prototype.update = function(game) {
