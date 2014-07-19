@@ -2,14 +2,14 @@
 
 angular.module('simDdApp')
     .controller('WorldCtrl', function ($scope, WorldService) {
-        WorldService.faunaService.query(function (res) {
-            $scope.faunas = res;
-        });
-        WorldService.floraService.query(function (res) {
-            $scope.floras = res;
-        });
-        WorldService.floraService.query(function (res) {
-            $scope.floras = res;
-        });
+        var refresh = function () {
+            WorldService.faunaService.query(function (res) {
+                $scope.faunas = res;
+            });
+            WorldService.floraService.query(function (res) {
+                $scope.floras = res;
+            });
+        };
 
+        setInterval(refresh, 1000);
     });

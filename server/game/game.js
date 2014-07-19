@@ -49,8 +49,6 @@ var Game = (function () {
 
         this.fauna.update(this);
         this.flora.update(this);
-
-        this.draw();
     };
 
     Game.prototype.start = function () {
@@ -60,70 +58,6 @@ var Game = (function () {
                 self.update()
             }, 1000);
         } // <-- Never look or touch this code if you want to retain your sanity (http://stackoverflow.com/questions/237350/how-to-solve-var-out-of-scope-within-settimeout-call)
-    };
-
-    Game.prototype.draw = function () {
-/* Obsolete - Drawing world
-        var buffer = [];
-        for (var i = 0; i < this.planet.data.length; i++) {
-            buffer[i] = [];
-            for (var j = 0; j < this.planet.data[i].length; j++) {
-                buffer[i][j] = this.planet.data[i][j];
-            }
-        }
-*/
-/* Obsolete - Drawing flora/fauna
-        this.flora.floras.concat(this.fauna.faunas).forEach(function (entity) {
-            var char;
-            switch (entity.type) {
-                case 'wolf':
-                    char = 'W';
-                    break;
-                case 'rabbit':
-                    char = 'r';
-                    break;
-                case 'berrybush':
-                    char = '*';
-                    break;
-                case 'grass':
-                    char = ';';
-                    break;
-            }
-            buffer[entity.coords.x][entity.coords.y] = char;
-        });*/
-
-        this.save();
-    };
-
-    Game.prototype.save = function () {
-        var faunaModel = require('../api/fauna/fauna.model');
-        var floraModel = require('../api/flora/flora.model');
-
-        var pad = function (n, width, z) {
-            z = z || '0';
-            n = n + '';
-            return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-        };
-
-/*        this.fauna.faunas.forEach(function (faunaData) {
-            var fauna = new faunaModel(faunaData);
-            fauna.save(function (err, val) {
-                if (err)
-                    console.log("Failed to update fauna: " + fauna.name + "err: " + error);
-                else
-                    console.log("Saved with value: " + val);
-            });
-        });
-
-        this.flora.floras.forEach(function (floraData) {
-            var flora = new floraModel(floraData);
-            flora.save(function (err, val) {
-                if (err)
-                    console.log("Failed to update flora: " + flora.name + "err: " + error);
-                else
-                    console.log("Saved with value: " + val);
-            });
-        });*/
     };
 
     Game.prototype.validate = function (coords) {
