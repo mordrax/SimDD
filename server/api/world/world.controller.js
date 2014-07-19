@@ -7,7 +7,7 @@ var World = require('./world.model');
 exports.index = function(req, res) {
   World.find(function (err, worlds) {
     if(err) { return handleError(res, err); }
-    return res.json(200, worlds);
+    res.json(200, worlds);
   });
 };
 
@@ -17,7 +17,7 @@ exports.show = function(req, res) {
     if(err) { return handleError(res, err); }
     if(!world) { return res.send(404); }
     return res.json(world);
-  });
+});
 };
 
 // Creates a new world in the DB.

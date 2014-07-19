@@ -7,13 +7,7 @@ var WorldSchema = new Schema({
   name: String,
   info: String,
   active: Boolean,
-  tiles:[{
-      coords:{
-          x:Number,
-          y:Number
-      },
-      type:String
-  }]
+  tiles: [Schema.Types.Mixed]
 });
 
 module.exports = mongoose.model('World', WorldSchema);

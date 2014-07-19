@@ -80,7 +80,6 @@ var FaunaModel = require('../api/fauna/fauna.model');
                 this.coords.x += towardsFood.x;
                 this.coords.y += towardsFood.y;
             }
-
             this.coords = game.validate(this.coords);
 
             // move away from predator - 5

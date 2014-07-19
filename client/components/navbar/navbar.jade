@@ -17,6 +17,9 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl')
           a(href='/admin') Admin
 
       ul.nav.navbar-nav.navbar-right
+        li(ng-class='{active: isActive("/world")}')
+          a(href='/world') World
+
         li(ng-class='{active: isActive("/faunas")}')
           a(href='/faunas') Faunas
 

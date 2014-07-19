@@ -23,14 +23,6 @@ var ObjectId = require("mongoose").Types.ObjectId;
                 newWorld.save();
             }
         });
-
-
-/*        exports.create = function(req, res) {
-            World.create(req.body, function(err, world) {
-                if(err) { return handleError(res, err); }
-                return res.json(201, world);
-            });
-        };*/
     };
 
     var seed = function () {
