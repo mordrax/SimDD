@@ -1,4 +1,9 @@
 .col-md-12
     | This is the world view.
 
-  {{ world[0] }}
+
+.container(ng-repeat="fauna in faunas")
+  .tile(ng-style="{left:fauna.coords.x*16, top:fauna.coords.y*16}")
+
+.container(ng-repeat="flora in floras")
+  .tile(ng-style="{left:flora.coords.x*16, top:flora.coords.y*16}")

@@ -2,7 +2,10 @@
 
 angular.module('simDdApp')
     .controller('WorldCtrl', function ($scope, WorldService) {
-        WorldService.worldService.query(function (data) {
-            $scope.world = data;
+        WorldService.faunaService.query(function (res) {
+            $scope.faunas = res;
+        });
+        WorldService.floraService.query(function (res) {
+            $scope.floras = res;
         });
     });

@@ -1,1 +1,1 @@
-<div class="col-md-12">This is the world view.</div>{{ world[0] }}
+<div class="col-md-12">This is the world view.</div><div ng-repeat="fauna in faunas" class="container"><div ng-style="{left:fauna.coords.x*16, top:fauna.coords.y*16}" class="tile"></div></div><div ng-repeat="flora in floras" class="container"><div ng-style="{left:flora.coords.x*16, top:flora.coords.y*16}" class="tile"></div></div>
