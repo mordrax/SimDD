@@ -8,4 +8,8 @@ angular.module('simDdApp')
         WorldService.floraService.query(function (res) {
             $scope.floras = res;
         });
+        WorldService.floraService.query(function (res) {
+            $scope.floras = res;
+        });
+
     });
