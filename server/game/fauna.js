@@ -40,6 +40,12 @@ var FaunaModel = require('../api/fauna/fauna.model');
     var updateFauna = function (self, game) {
         self.attributes.hunger--;
         //console.log("name: " + this.name + "  hunger: " + this.attributes.hunger);
+        if (self.attributes.hunger === 0) {
+            self.type = "meat";
+        }
+        if (self.attributes.hunger === -10) {
+            self.type = "bones";
+        }
         if (self.attributes.hunger < 0)
             return; //dead things don't move
 
@@ -122,8 +128,9 @@ var FaunaModel = require('../api/fauna/fauna.model');
             curFauna.save(function(err, res, count) {
                 if (err) console.log(err);
             });
-            if (curFauna.attributes.hunger < 0) {
-                deceased_faunas.concat(faunaManager.faunas.splice(i, 1)); // remove animal from faunas and add to dead list
+            if (curFauna.attributes.hunger < -100) {
+                //deceased_faunas.concat(faunaManager.faunas.splice(i, 1)); // remove animal from faunas and add to dead list
+                faunaManager.faunas.splice(i,1);    // animal rots completely - remove from fauna list
             }
         }
 
