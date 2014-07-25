@@ -10,14 +10,28 @@ var Game = (function () {
     var mongoose;
     var db;
 
-    function Game() {
+    var Ash = require('./lib/ash.js');
+    var Engine = new Ash.Engine();
+    var Systems = require('./systems');
+    var Util = require('./util');
+
+    function Game () {
         this.self = this;
         this.planet = require('./planet');
         this.fauna = require('./fauna');
         this.flora = require('./flora');
         this.mongoose = require('mongoose');
+
+        Engine.addSystem(new Systems.DeathSystem(), 1);
+        Engine.addSystem(new Systems.DecisionSystem(), 2);
+        Engine.addSystem(new Systems.MovementSystem(), 3);
+
+        this._factory = require('./entityFactory').Factory;
+
+        Engine.addEntity(this._factory.Wolf(Util.rand(0, this.planet.WIDTH), Util.rand(0, this.planet.HEIGHT)));
+
         console.log('Constructed game');
-    }
+    };
 
     Game.prototype.init = function () {
         this.planet.init();
@@ -33,10 +47,6 @@ var Game = (function () {
         console.log('Initialised the planet, db and all fauna, flora');
     };
 
-    Game.prototype.rand = function (low, high) {
-        return Math.random() * (high - low) + low;
-    };
-
     Game.prototype.randCoord = function () {
         coords = {};
         coords.x = Math.round(this.rand(0, this.planet.HEIGHT - 1));
@@ -46,9 +56,9 @@ var Game = (function () {
 
     Game.prototype.update = function () {
         /*console.log(Date.now()-startTime);*/
-
-        this.fauna.update(this);
-        this.flora.update(this);
+        Engine.update();
+        //this.fauna.update(this);
+        //this.flora.update(this);
     };
 
     Game.prototype.start = function () {
@@ -69,6 +79,7 @@ var Game = (function () {
 
         return coords;
     };
+
     return Game;
 })();
 

@@ -21,7 +21,7 @@ module.exports = function(app) {
 
   app.set('views', config.root + '/server/views');
   app.set('view engine', 'jade');
-  app.use(compression());
+  //app.use(compression());
   app.use(bodyParser());
   app.use(methodOverride());
   app.use(cookieParser());

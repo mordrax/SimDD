@@ -1,3 +1,5 @@
+div(ng-include='"components/navbar/navbar.html"')
+
 .container
   .tile(ng-style="{left:fauna.coords.x*32, top:fauna.coords.y*32}" ng-class="fauna.type" ng-repeat="fauna in faunas")
 
