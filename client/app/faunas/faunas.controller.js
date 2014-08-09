@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('simDdApp')
-    .controller('FaunasCtrl', function ($scope, WorldService, ngTableParams, $filter) {
+    .controller('FaunasCtrl', function ($scope, WorldService, ngTableParams, $filter, socket) {
         $scope.message = 'Hello';
 
-        WorldService.faunaService.query(function (data) {
+        $scope.faunas = [];
+        socket.syncUpdates('fauna', $scope.faunas);
+
+        /*WorldService.faunaService.query(function (data) {
             $scope.faunasTable = new ngTableParams({
                 page: 1,            // show first page
                 count: 10,          // count per page
@@ -24,7 +27,7 @@ angular.module('simDdApp')
                     $defer.resolve($scope.faunas);
                 }
             });
-        });
+        });*/
 
         $scope.save = function (data) {
             var saveableData = data;

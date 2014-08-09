@@ -4,15 +4,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var FaunaSchema = new Schema({
-  name: String,
-  type: String,
-  attributes: {
-      speed: Number,
-      hunger: Number,
-      attack: Number,
-      defense: Number
-  },
-  coords : {
+  id: String,
+  position: {
       x: Number,
       y: Number
   }

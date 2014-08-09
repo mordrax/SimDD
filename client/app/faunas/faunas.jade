@@ -1,5 +1,6 @@
 div(ng-include='"components/navbar/navbar.html"')
 
+{{ faunas }}
 .container
   table.table(ng-table="faunasTable", show-filter="true")
     tr(ng-repeat="fauna in faunas")

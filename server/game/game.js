@@ -25,11 +25,18 @@ var Game = (function () {
         Engine.addSystem(new Systems.DeathSystem(), 1);
         Engine.addSystem(new Systems.DecisionSystem(), 2);
         Engine.addSystem(new Systems.MovementSystem(), 3);
+        Engine.addSystem(new Systems.NodeSystem(), 10);
 
         this._factory = require('./entityFactory').Factory;
 
-        Engine.addEntity(this._factory.Wolf(Util.rand(0, this.planet.WIDTH), Util.rand(0, this.planet.HEIGHT)));
-        Engine.addEntity(this._factory.Rabbit(Util.rand(0, this.planet.WIDTH), Util.rand(0, this.planet.HEIGHT)));
+        Engine.addEntity(this._factory.Wolf(
+            'wolfie',
+            Util.rand(0, this.planet.WIDTH),
+            Util.rand(0, this.planet.HEIGHT)));
+        Engine.addEntity(this._factory.Rabbit(
+            'rogers',
+            Util.rand(0, this.planet.WIDTH),
+            Util.rand(0, this.planet.HEIGHT)));
 
         console.log('Constructed game');
     };

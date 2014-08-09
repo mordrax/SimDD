@@ -1,6 +1,7 @@
 (function (c) {
     var Ash = require('../lib/ash.min');
     var Enums = require('../enums');
+    var mongoose = require('mongoose');
 
     c.Edible = Ash.Class.extend({
         constructor: function (edible) {
@@ -36,6 +37,12 @@
                 procreate: 0
             };
             this._dietType = dietType || Enums.Diet.omnivore;
+            return this;
+        }
+    });
+    c.Identity = Ash.Class.extend({
+        constructor: function(id) {
+            this._id = id;
             return this;
         }
     });

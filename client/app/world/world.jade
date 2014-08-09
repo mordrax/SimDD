@@ -1,7 +1,11 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-.container
-  .tile(ng-style="{left:fauna.coords.x*32, top:fauna.coords.y*32}" ng-class="fauna.type" ng-repeat="fauna in faunas")
+div {{ faunas }}
 
 .container
-  .tile(ng-style="{left:flora.coords.x*32, top:flora.coords.y*32}" ng-class="flora.type" ng-repeat="flora in floras")
+  .tile(
+    ng-style="{left:fauna.position.x*32, top:fauna.position.y*32}"
+    ng-class="(fauna.id == 'rogers') ? 'wolf' : 'rabbit'" ng-repeat="fauna in faunas")
+
+//.container
+//  .tile(ng-style="{left:flora.coords.x*32, top:flora.coords.y*32}" ng-class="flora.type" ng-repeat="flora in floras")

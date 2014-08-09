@@ -6,16 +6,18 @@
     var Enums = require('./enums');
 
     var Factory = {
-        Wolf: function Wolf(x, y) {
+        Wolf: function Wolf(id, x, y) {
             return new Ash.Entity()
+                .add(new Components.Identity(id))
                 .add(new Components.Position(x, y))
                 .add(new Components.Motion())
                 .add(new Components.Instincts(Enums.Diet.carnivore))
                 .add(new Components.Satiation())
         },
 
-        Rabbit: function Rabbit(x, y) {
+        Rabbit: function Rabbit(id, x, y) {
             return new Ash.Entity()
+                .add(new Components.Identity(id))
                 .add(new Components.Position(x, y))
                 .add(new Components.Motion())
                 .add(new Components.Instincts(Enums.Diet.herbivore))
