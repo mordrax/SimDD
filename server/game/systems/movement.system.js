@@ -2,6 +2,7 @@
     'use strict';
     var Ash = require('../lib/ash.min');
     var Nodes = require('../nodes');
+    var Util = require('../util');
 
     var MovementSystem = Ash.System.extend({
         nodeList: [],
@@ -21,10 +22,10 @@
 
         update: function (time) {
             for (var node = this.nodeList.head; node; node = node.next) {
-                //this.updateNode(node, time);
-                console.log("movement system: " + node);
+                node.position.x += Util.rand(0,2) - 1;
+                node.position.y += Util.rand(0,2) - 1;
             }
-            console.log('movement system called');
+            console.log('movement system processed');
         }
     });
 

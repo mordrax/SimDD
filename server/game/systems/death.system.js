@@ -21,10 +21,9 @@
 
         update: function (time) {
             for (var node = this.nodeList.head; node; node = node.next) {
-                //this.updateNode(node, time);
-                console.log("death node: " + node);
+                node.satiation._satiation -= 1;
             }
-            console.log('death system called');
+            console.log('death system processed');
         }
     });
 

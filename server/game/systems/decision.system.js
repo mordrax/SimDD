@@ -20,9 +20,10 @@
         },
         update: function (time) {
             for (var node = this.nodeList.head; node; node = node.next) {
-                console.log("decision: " + node);
+                var p = node.position;
+                var s = node.satiation;
+                console.log('entity pos(' + p.x + ',' + p.y + ') satiation: ' + s._satiation);
             }
-            console.log('decision system called');
         }
     });
 

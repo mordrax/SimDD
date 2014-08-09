@@ -29,6 +29,7 @@ var Game = (function () {
         this._factory = require('./entityFactory').Factory;
 
         Engine.addEntity(this._factory.Wolf(Util.rand(0, this.planet.WIDTH), Util.rand(0, this.planet.HEIGHT)));
+        Engine.addEntity(this._factory.Rabbit(Util.rand(0, this.planet.WIDTH), Util.rand(0, this.planet.HEIGHT)));
 
         console.log('Constructed game');
     };
